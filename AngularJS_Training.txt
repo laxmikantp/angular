@@ -1,0 +1,22 @@
+AngularJS
+========
+
+Durarion: 10-15 hours
+
+
+1. Introduction/Basics
+2. Structure
+3. Directives
+4. Controllers
+5. Scopes
+6. Services
+7. How to make API calls(REST)
+8. Events
+9. Filters
+10. Routing
+11. Forms and Validations
+12. Modules and Dependency Injection(Internal Concepts)
+13. Highcharts with AngularJS
+14. Others(Internal Concepts)
+
+  
