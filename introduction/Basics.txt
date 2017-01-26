@@ -1,0 +1,58 @@
+1. AngularJS is not a library, rather, it is a JavaScript framework that embraces extending HTML into a more expressive and readable format. It allows you to decorate your HTML with special markup that synchronizes with your JavaScript leaving you to write your application logic instead of manually updating views. Whether you're looking to augment existing JavaScript applications or harness the full power of the framework to create rich and interactive SPA's, Angular can help you write cleaner and more efficient code, since 
+
+a library - a collection of functions which are useful when writing web apps. Your code is in charge and it calls into the library when it sees fit. E.g., jQuery
+
+frameworks - a particular implementation of a web application, where your code fills in the details. The framework is in charge and it calls into your code when it needs something app specific. E.g., durandal, ember, etc.	
+
+	
+2. We can add it like: <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"><./script>
+
+3. We can maintain a separate file for writing the angular related scripting(Ex: app.js).
+
+
+4. jQuery: jQuery is a library. If you want to build a web site, jQuery is enough without Angular.Doesn’t supports two-way data binding.It doesn’t uses Dependency Injection (DI).It can be used on any website or web application. It is used for DOM Manipulations and it becomes complex and difficult to maintain when size of project increases.
+- Has nothing to do with models 
+ Usage:
+
+$(document).ready(function(){
+$("p").click(function(){
+$(this).hide();
+});
+});
+  AngularJS: 	AngularJS is a framework(is a MVVM Framework). If you want to build web application, need to go with Angular. 	Supports two-way data binding. Much use of Dependency Injection (DI).	It is mostly used for Single Page Applications (SPA). It has key features like routing, directives, two way data binding, models, dependency injection, unit tests etc. Maintainable, when project size increases and it is Fast
+  
+  
+  Usage:
+
+<div ng-app="XXXXXXXX">
+<p>Email : <input type = "text" ng-model="email"></p>
+<h1>Your email id is {{email}}</h1>
+</div>
+
+
+ 
+ 5. Advantages: 
+ 
+ - AngularJS, commonly referred to as Angular, is an open-source web application framework maintained by Google and a community of individual developers and corporations to address many of the challenges encountered in developing single-page applications. The library works by first reading the HTML page, which has embedded into it additional custom tag attributes. Those attributes are interpreted as directives telling Angular to bind input or output parts of the page to a model that is represented by standard JavaScript variables. The values of those JavaScript variables can be manually set within the code, or retrieved from static or dynamic JSON resources.
+ 
+ - No need to use observable functions; Angular analyses the page DOM and builds the bindings based on the Angular-specific element attributes. That requires less writing, the code is cleaner, easier to understand and less error prone.
+ 
+ - Angular modifies the page DOM directly instead of adding inner HTML code. That is faster.
+ 
+ - Data binding occurs not on each control or value change (no change listeners) but at particular points of the JavaScript code execution. That dramatically improves performance as a single bulk Model/View update replaces hundreds of cascading data change events.
+ 
+ - Quite a number of different ways to do the same things, thus accommodating to particular development styles and tasks.
+
+ - Extended features such as dependency injection, routing, animations, view orchestration, and more.
+ 
+ - Supported by IntelliJ IDEA and Visual Studio .NET IDEs.
+ 
+ - Supported by Google and a great development community
+ 
+ 
+ 
+ 
+ 6. Architecture:
+ 
+ 
+  
