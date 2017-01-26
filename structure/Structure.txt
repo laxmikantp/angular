@@ -1,0 +1,16 @@
+1. The library works by first reading the HTML page, which has embedded into it additional custom tag attributes. Those attributes are interpreted as directives telling Angular to bind input or output parts of the page to a model that is represented by standard JavaScript variables. The values of those JavaScript variables can be manually set within the code, or retrieved from static or dynamic JSON resources.
+ 
+
+2. No need to use observable functions; Angular analyses the page DOM and builds the bindings based on the Angular-specific element attributes. That requires less writing, the code is cleaner, easier to understand and less error prone.
+ 
+
+3. Angular modifies the page DOM directly instead of adding inner HTML code. That is faster.
+
+4. MVC: Model View Controller
+
+Model: It is used to represent current state and data of your application i.e it maintains the application data
+View: It is responsible to display/show the data on view page
+Controller: responsible to controls the relation between Models and Views i.e receives input, validates it, and then performs business operations that modify the state of the data model
+
+
+But actually it follows MVVM: Model View - View Model i.e two-way data binding
