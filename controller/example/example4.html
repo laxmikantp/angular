@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+
+   <title>Share data between controllers in AngularJs with $rootScope</title>
+
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+
+   <script>
+
+      var app = angular.module("myApp", []);
+
+      app.run(function($rootScope) {
+
+         $rootScope.userData = {};
+
+         $rootScope.userData.firstName = "Ravi";
+
+         $rootScope.userData.lastName = "Sharma";
+
+      });
+
+      app.controller("firstController", function($scope, $rootScope) {});
+
+      app.controller("secondController", function($scope, $rootScope) {});
+
+   </script>
+
+</head>
+
+
+<body ng-app="myApp">
+
+   <div ng-controller="firstController">
+
+      <br>
+
+      <input type="text" ng-model="userData.firstName">
+
+      <br>
+
+      <input type="text" ng-model="userData.lastName">
+
+      <br>
+
+      <br>First Name: <strong>{{userData.firstName}}</strong>
+
+      <br>Last Name : <strong>{{userData.lastName}}</strong> </div>
+
+   <hr>
+
+   <div ng-controller="secondController"> Showing first name and last name on second controller: <b> {{userData.firstName}}   {{userData.lastName}}</b>      </div>
+
+</body>
+
+
+</html>

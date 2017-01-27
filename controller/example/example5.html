@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Share data between controllers in AngularJs without $Watch</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+   <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+     
+         return {
+            userData: {
+               firstName: '',
+               lastName: ''
+            } 
+         };
+      });
+      app.controller("firstController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+         
+         $scope.data.firstName="Ravi";
+         $scope.data.lastName="Sharma";
+         
+      });
+      app.controller("secondController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+   <br>
+      <input type="text" ng-model="data.firstName"><br>
+      <input type="text" ng-model="data.lastName">
+      <br>
+      <br>First Name: <strong>{{data.firstName}}</strong>
+<br>Last Name : <strong>{{data.lastName}}</strong>
+      </div>
+   <hr>
+   <div ng-controller="secondController"> Showing first name and last name on second controller: <b> {{data.firstName}}   {{data.lastName}}</b> </div>
+</body>
+
+</html>

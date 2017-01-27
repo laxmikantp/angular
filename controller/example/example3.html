@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+</head>
+<body ng-app="myNgApp">
+    <div ng-controller="parentController">
+        Message: {{firstname}} 
+        <div ng-controller="childController">
+            Parent Message: {{firstname}} </br>
+            Child Message: {{lastname}}
+        </div>
+		
+        <span ng-controller="guardianController"> Child Message: {{fullname}}
+		
+		<br>
+		
+		Parent Message: {{firstname}}
+		<br>
+		Child Message: {{lastname}}
+		</span>
+    </div>
+    <script>
+         var ngApp = angular.module('myNgApp', []);
+
+        ngApp.controller('parentController', function ($scope) {
+            $scope.firstname = "Laxmikanth";
+			
+        });
+
+        ngApp.controller('childController', function ($scope) {
+            $scope.lastname = "Pandey";
+			alert($scope.firstname);
+        });
+		ngApp.controller('guardianController', function ($scope) {
+            $scope.fullname = "Laxmikanth Pandey";
+        });
+    </script>
+</body>
+</html>

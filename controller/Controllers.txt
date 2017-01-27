@@ -1,0 +1,445 @@
+1. AngularJS controllers control the data of AngularJS applications. AngularJS controllers are regular JavaScript Objects.
+
+2. AngularJS applications are controlled by controllers. The ng-controller directive defines the application controller. A controller is a JavaScript Object, created by a standard JavaScript object constructor.
+
+3. A controller is defined using ng-controller directive. A controller is a JavaScript object containing attributes/properties and functions. Each controller accepts $scope as a parameter which refers to the application/module that controller is to control.
+
+4. The controller in AngularJS is a JavaScript function that maintains the application data and behavior using $scope object.
+
+5. The ng-controller directive is used to specify a controller in HTML element, which will add behavior or maintain the data in that HTML element and its child elements.
+
+6. AngularJS will invoke the controller with a $scope object.  $scope is the application object (the owner of application variables and functions).
+
+Ex:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+</head>
+<body ng-app="myNgApp">
+    <div ng-controller="myController">
+        {{message}}
+    </div>
+    <script>
+        var ngApp = angular.module('myNgApp', []);
+
+        ngApp.controller('myController', function ($scope) {
+            $scope.message = "Hello World!";        
+        });
+    </script>
+</body>
+</html>
+
+7. Ex:
+
+<html>
+   
+   <head>
+      <title>Angular JS Controller</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+   </head>
+   
+   <body>
+      <h2>AngularJS Sample Application</h2>
+      
+      <div ng-app = "mainApp" ng-controller = "studentController">
+         Enter first name: <input type = "text" ng-model = "student.firstName"><br><br>
+         Enter last name: <input type = "text" ng-model = "student.lastName"><br>
+         <br>
+         
+         You are entering: {{student.fullName()}}
+      </div>
+      
+      <script>
+         var mainApp = angular.module("mainApp", []);
+         
+         mainApp.controller('studentController', function($scope) {
+            $scope.student = {
+               firstName: "Mahesh",
+               lastName: "Parashar",
+               
+               fullName: function() {
+                  var studentObject;
+                  studentObject = $scope.student;
+                  return studentObject.firstName + " " + studentObject.lastName;
+               }
+            };
+         });
+      </script>
+      
+   </body>
+</html>
+
+
+8. Nested Controllers:Angular allows nested controllers
+
+Ex:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+</head>
+<body ng-app="myNgApp">
+    <div ng-controller="parentController">
+        Message: {{message1}} 
+        <div ng-controller="childController">
+            Parent Message: {{message1}} </br>
+            Child Message: {{message2}}
+        </div>
+        Child Message: {{message2}}
+    </div>
+    <script>
+         var ngApp = angular.module('myNgApp', []);
+
+        ngApp.controller('parentController', function ($scope) {
+            $scope.message1 = "This is parentController";
+        });
+
+        ngApp.controller('childController', function ($scope) {
+            $scope.message2 = "This is childController";
+        });
+    </script>
+</body>
+</html>
+
+
+As you can see in the above example, a child controller can access properties and methods attached in parent controller function, whereas parent controller cannot access properties and methods attached in child controller.
+
+
+
+9. How to share data between data in between two controllers ?
+
+ Services provide an easy way for us to share data and functionality throughout our app. The services we create are singletons that can be injected into controllers and other services, making them the ideal place for writing reusable code.
+ 
+ a. Share data between controllers in AngularJs with $rootScope
+ 
+ Ex:
+ 
+ <!DOCTYPE html>
+
+<html>
+
+
+<head>
+
+   <title>Share data between controllers in AngularJs with $rootScope</title>
+
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+
+   <script>
+
+      var app = angular.module("myApp", []);
+
+      app.run(function($rootScope) {
+
+         $rootScope.userData = {};
+
+         $rootScope.userData.firstName = "Ravi";
+
+         $rootScope.userData.lastName = "Sharma";
+
+      });
+
+      app.controller("firstController", function($scope, $rootScope) {});
+
+      app.controller("secondController", function($scope, $rootScope) {});
+
+   </script>
+
+</head>
+
+
+<body ng-app="myApp">
+
+   <div ng-controller="firstController">
+
+      <br>
+
+      <input type="text" ng-model="userData.firstName">
+
+      <br>
+
+      <input type="text" ng-model="userData.lastName">
+
+      <br>
+
+      <br>First Name: <strong>{{userData.firstName}}</strong>
+
+      <br>Last Name : <strong>{{userData.lastName}}</strong> </div>
+
+   <hr>
+
+   <div ng-controller="secondController"> Showing first name and last name on second controller: <b> {{userData.firstName}}   {{userData.lastName}}</b>      </div>
+
+</body>
+
+
+</html>
+
+
+b. Share data between controllers in AngularJs using factory
+
+Ex: 
+
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Share data between controllers in AngularJs without $Watch</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+   <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+     
+         return {
+            userData: {
+               firstName: '',
+               lastName: ''
+            } 
+         };
+      });
+      app.controller("firstController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+         
+         $scope.data.firstName="Ravi";
+         $scope.data.lastName="Sharma";
+         
+      });
+      app.controller("secondController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+   <br>
+      <input type="text" ng-model="data.firstName"><br>
+      <input type="text" ng-model="data.lastName">
+      <br>
+      <br>First Name: <strong>{{data.firstName}}</strong>
+<br>Last Name : <strong>{{data.lastName}}</strong>
+      </div>
+   <hr>
+   <div ng-controller="secondController"> Showing first name and last name on second controller: <b> {{data.firstName}}   {{data.lastName}}</b> </div>
+</body>
+
+</html>
+
+
+c. Share data between controllers in AngularJs with Factory Update Function
+
+Ex:
+
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Share data between controllers in AngularJs with Factory Update Function</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+   <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+     
+         return {
+            userData: {
+               firstName: '',
+               lastName: ''
+            },
+                updateUserData: function(first, last) {
+                 
+                  this.userData.firstName = first;
+                  this.userData.lastName = last;
+                }
+         };
+      });
+      app.controller("firstController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+         
+        $scope.updateInfo = function(first, last) {
+            userFactory.updateUserData(first, last);
+        };
+         
+      });
+      app.controller("secondController", function($scope, userFactory) {
+         $scope.data = userFactory.userData;
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+   <br>
+      <input type="text" ng-model="firstName"><br>
+      <input type="text" ng-model="lastName"><br>
+      
+      <button ng-click="updateInfo(firstName,lastName)">Update</button>
+      <br>
+      <br>First Name: <strong>{{data.firstName}}</strong>
+<br>Last Name : <strong>{{data.lastName}}</strong>
+      </div>
+   <hr>
+   <div ng-controller="secondController"> Showing first name and last name on second controller: <b> {{data.firstName}}   {{data.lastName}}</b> </div>
+</body>
+
+</html>
+
+
+d. Share data between controllers in AngularJs with factory and $watch function
+
+Ex:
+
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Share data between controllers in AngularJs with factory and $watch function</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+     <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+     
+      var empData = {
+                FirstName: ''
+                    };
+                    
+             return {
+                        getFirstName: function () {
+                            return empData.FirstName;
+                        },
+                        setFirstName: function (firstName,lastName) {
+                            empData.FirstName = firstName;
+                            
+                        }
+                    };
+      });
+      
+      app.controller("firstController", function($scope, userFactory) {
+        
+            $scope.firstName = '';
+             $scope.lastName = '';
+             
+         $scope.$watch('firstName', function (newValue, oldValue) {
+                     if (newValue !== oldValue) 
+                     userFactory.setFirstName(newValue);
+            });
+         
+      });
+      
+      app.controller("secondController", function($scope, userFactory) {
+      
+       
+         $scope.$watch(function () 
+         { return        userFactory.getFirstName(); 
+         },
+
+         function (newValue, oldValue) {
+                if (newValue !== oldValue) 
+                    $scope.firstName = newValue;
+            });
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+   <br>
+      <input type="text" ng-model="firstName"><br>
+     
+      <br>
+      <br>First Name: <strong>{{firstName}}</strong>
+ 
+      </div>
+   <hr>
+   <div ng-controller="secondController"> 
+   
+   Showing first name and last name on second controller: <b> {{firstName}}   </b>  </div>
+   
+</body>
+
+</html>
+
+
+
+e. Share data between controllers in AngularJs with complex object using $watch
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Share data between controllers in AngularJs with complex object using $watch</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+   <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+         var empData = {
+            FirstName: '',
+            LastName: ''
+         };
+         return {
+            getEmployee: function() {
+               return empData;
+            },
+            setEmployee: function(firstName, lastName) {
+               empData.FirstName = firstName;
+               empData.LastName = lastName;
+            }
+         };
+      });
+      app.controller("firstController", function($scope, userFactory) {
+        
+        $scope.Emp = {
+            firstName: '',
+            lastName: ''
+         }
+         $scope.$watch('Emp', function(newValue, oldValue) {
+            if (newValue !== oldValue) {
+               userFactory.setEmployee(newValue.firstName, newValue.lastName);
+            }
+         }, true); //JavaScript use "reference" to check equality when we compare two complex objects. Just pass [objectEquality] "true" to $watch function.
+      });
+      app.controller("secondController", function($scope, userFactory) {
+         $scope.Emp = {
+            firstName: '',
+            firstName: ''
+         }
+         $scope.$watch(function() {
+            return userFactory.getEmployee();
+         }, function(newValue, oldValue) {
+            if (newValue !== oldValue) $scope.Emp.firstName = newValue.FirstName;
+            $scope.Emp.lastName = newValue.LastName;
+         }, true);
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+      <br>
+      <input type="text" ng-model="Emp.firstName">
+      <br>
+      <input type="text" ng-model="Emp.lastName">
+      <br>
+      <br>
+      <br> First Name: <strong>{{Emp.firstName}}</strong>
+      <br>Last Name: <strong>{{Emp.lastName}}</strong> </div>
+   <hr>
+   <div ng-controller="secondController"> Showing first name and last name on second controller: First Name - <strong> {{Emp.firstName}} </strong>, Last
+      Name: <strong>{{Emp.lastName}}</strong> </div>
+</body>
+
+</html>
+
+
+
+ 
+ 
+ 
+ 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Share data between controllers in AngularJs with factory and $watch function</title>
+   <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+     <script>
+      var app = angular.module("myApp", []);
+      app.factory('userFactory', function() {
+     
+      var empData = {
+                FirstName: ''
+                    };
+                    
+             return {
+                        getFirstName: function () {
+                            return empData.FirstName;
+                        },
+                        setFirstName: function (firstName,lastName) {
+                            empData.FirstName = firstName;
+                            
+                        }
+                    };
+      });
+      
+      app.controller("firstController", function($scope, userFactory) {
+        
+            $scope.firstName = '';
+             $scope.lastName = '';
+             
+         $scope
+		 .$watch('firstName', function (newValue, oldValue) {
+                     if (newValue !== oldValue) 
+                     userFactory.setFirstName(newValue);
+            });
+         
+      });
+      
+      app.controller("secondController", function($scope, userFactory) {
+      
+       
+         $scope.$watch(function () 
+         { return        userFactory.getFirstName(); 
+         },
+
+         function (newValue, oldValue) {
+                if (newValue !== oldValue) 
+                    $scope.firstName = newValue;
+            });
+      });
+   </script>
+</head>
+
+<body ng-app="myApp">
+   <div ng-controller="firstController">
+   <br>
+      <input type="text" ng-model="firstName"><br>
+     
+      <br>
+      <br>First Name: <strong>{{firstName}}</strong>
+ 
+      </div>
+   <hr>
+   <div ng-controller="secondController"> 
+   
+   Showing first name and last name on second controller: <b> {{firstName}}   </b>  </div>
+   
+</body>
+
+</html>
