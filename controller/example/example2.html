@@ -14,6 +14,8 @@
          <br>
          
          You are entering: {{student.fullName()}}
+          <br>
+          {{student.fullnameWithAddress()}}
       </div>
       
       <script>
@@ -28,7 +30,13 @@
                   var studentObject;
                   studentObject = $scope.student;
                   return studentObject.firstName + " " + studentObject.lastName;
-               }
+               },
+
+                fullnameWithAddress:function(){
+                 var fullDetail;
+                 fullDetail=this.fullName()+" \n Address: Varanasi UP";
+                 return fullDetail;
+             }
             };
          });
       </script>
