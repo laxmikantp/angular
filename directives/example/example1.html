@@ -6,19 +6,25 @@
 </head>
 <body>
 
-
+<!-- variable define ng-init directive-->
 <div  ng-app="mainApp" ng-init="welcomeMessage='welcome in angular'; amount=100; myArr=[200, 3000, 400]; myJson={firstName:'laxmikant', lastName:'pandey'}">
+
+    <!-- variable display -->
     {{welcomeMessage}}<br>
     {{amount}}<br>
     {{myArr[2]}}<br>
     {{myJson.firstName}}<br>
     {{myJson.lastName}}<br>
 
-    <input type="text" ng-model="myJson.firstName" />
+    <!--ng-model directive-->
+    <input type="text" ng-model="myJson.firstName" /> <br>
+
+    <!--ng-bind directive-->
+    {{myArr[0]}} + {{myArr[1]}} + {{myArr[2]}} = <span ng-bind="{{myArr[0] + myArr[1] + myArr[2]}}"></span> <br />
+
 </div>
 <script>
     var mainApp = angular.module("mainApp", []);
-
 </script>
 
 </body>
