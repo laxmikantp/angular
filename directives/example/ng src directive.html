@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+</head>
+<body>
+
+<!-- variable define ng-init directive-->
+<div  ng-app="mainApp" ng-init="img='https://i.ytimg.com/vi/kn2tYSiWo3U/maxresdefault.jpg';">
+
+    <img ng-src="{{img}}">
+
+</div>
+<script>
+    var mainApp = angular.module("mainApp", []);
+</script>
+
+</body>
+</html>
