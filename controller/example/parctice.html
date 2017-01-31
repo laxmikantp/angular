@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.js"></script>
+</head>
+<body ng-app="employee">
+<h1>employee detail</h1>
+<div ng-controller="employeeList">
+<div  ng-repeat="employee in employees">employee: {{employee.name}} department {{employee.department}} salary{{employee.salary}} joining date {{employee.joining_date}}</div>
+<div  ng-repeat="employee in employees1">employee: {{employee.name}} department {{employee.department}} salary{{employee.salary}} joining date {{employee.joining_date}}</div></div>
+
+<script>
+    var app = angular
+            .module('employee',[])
+            .factory('data',function(){
+                var employees=[
+                    {name:'laxmikant123',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'10/1/2015'},
+                    {name:'anup',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'15/1/2015'},
+                    {name:'neeraj',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'13/1/2015'},
+                    {name:'saurav',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'12/1/2015'},
+                    {name:'faiz',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'11/1/2015'}
+                ];
+
+                return employees;
+            })
+            .service('dataService', function(data){
+                this.myFunc = function (x) {
+                    return data;
+                }
+/*
+                this.getEmployee = function(a) {
+                    return data;
+                }
+*/
+
+            })
+            .service('dataService1', function(){
+
+                var employees1=[
+                    {name:'laxmikant',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'10/1/2015'},
+                    {name:'anup',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'15/1/2015'},
+                    {name:'neeraj',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'13/1/2015'},
+                    {name:'saurav',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'12/1/2015'},
+                    {name:'faiz',
+                        department:'tech',
+                        salary:'20000',
+                        joining_date:'11/1/2015'}
+                ];
+
+                return employees1;
+            })
+            .controller('employeeList',function($scope,dataService,dataService1){
+                    $scope.employees=dataService.myFunc();
+                $scope.employees1=dataService1;
+             })
+
+
+</script>
+
+</body>
+</html>
