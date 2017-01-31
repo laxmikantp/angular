@@ -1,0 +1,12 @@
+<p>Subjects:</p>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Marks</th>
+    </tr>
+
+    <tr ng-repeat = "subject in student.subjects | orderBy:['marks']">
+        <td>{{ subject.name }}</td>
+        <td>{{ subject.marks }}</td>
+    </tr>
+</table>
