@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    <style>
+        .arrow-up{
+            width: 0;
+            height: 0;
+            border-left:5px solid transparent;
+            border-right:5px solid transparent;
+            border-bottom:5px solid black;
+        }
+
+        .arrow-down{
+            width: 0;
+            height: 0;
+            border-left:5px solid transparent;
+            border-right:5px solid transparent;
+            border-top:5px solid black;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+<div ng-controller="emp">
+    search: <input type="text" placeholder="search name" ng-model="searchText.name"> <input type="text" placeholder="search salary" ng-model="searchText.salary"> <input type="checkbox" name="exactMatch" ng-model="exactMatch"> Exact Match <br><br>
+<table>
+    <thead>
+    <tr>
+        <th ng-click="sortData('name')">Name<div ng-class="getSortClass('name')"></div></th>
+        <th ng-click="sortData('dob')">Date of Birth<div ng-class="getSortClass('dob')"></div></th>
+        <th ng-click="sortData('gender')">Gender<div ng-class="getSortClass('gender')"></div></th>
+        <th ng-click="sortData('salary')">Salary<div ng-class="getSortClass('salary')"></div></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="employee in employees|filter:searchText:exactMatch|orderBy:sortColumnn:reverseSort">
+        <td>{{employee.name}}</td>
+        <td>{{employee.DOB|date:"dd/MM/yyyy"}}</td>
+        <td>{{employee.gender}}</td>
+        <td>{{employee.salary}}</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<script>
+    var app=angular.module('myApp',[])
+            .controller('emp',function($scope){
+                var employees=[
+                    {name:'laxmikant',DOB:new Date('November 12 1984'),gender:'Male',salary:100000},
+                    {name:'priyanka',DOB:new Date('May 22 1988'),gender:'Female',salary:10000},
+                    {name:'yuvi',DOB:new Date('March 26 2011'),gender:'Male',salary:1000},
+                    {name:'saurav',DOB:new Date('july 30 1986'),gender:'Male',salary:2000000},
+                    {name:'amit',DOB:new Date('November 12 1984'),gender:'Male',salary:100000}
+                ];
+                $scope.employees=employees;
+                $scope.sortColumnn='name';
+                $scope.reverseSort=false;
+                $scope.sortData=function(column){
+                    $scope.reverseSort=($scope.sortColumnn==column)? !$scope.reverseSort:false;
+                    $scope.sortColumnn=column;
+                }
+
+                $scope.getSortClass=function(column){
+                    if($scope.sortColumnn==column){
+                        return $scope.reverseSort ? 'arrow-down':'arrow-up';
+                    }
+
+                    return '';
+                }
+            });
+
+</script>
+</body>
+</html>
